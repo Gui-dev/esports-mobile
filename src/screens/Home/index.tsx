@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Image, ScrollView, View } from 'react-native'
+import { FlatList, Image, ScrollView } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 import logoImg from './../../assets/logo-nlw-esports.png'
 import { styles } from './style'
@@ -20,7 +21,7 @@ export const Home = () => {
   }, [])
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ScrollView
         contentContainerStyle={styles.content}
       >
@@ -46,6 +47,6 @@ export const Home = () => {
         />
 
       </ScrollView>
-    </View>
+    </SafeAreaView>
   )
 }
