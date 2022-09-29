@@ -6,8 +6,6 @@ import { Background } from './src/components/Background'
 import { Loading } from './src/components/Loading'
 import { Home } from './src/screens/Home'
 
-// SplashScreen.preventAutoHideAsync()
-
 export default function App () {
   const [fontsLoaded] = useFonts({
     Inter_400Regular,

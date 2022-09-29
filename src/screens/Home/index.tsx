@@ -1,14 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FlatList, Image, ScrollView, View } from 'react-native'
 
 import logoImg from './../../assets/logo-nlw-esports.png'
 import { styles } from './style'
 
-import { GAMES } from './../../utils/games'
 import { Heading } from '../../components/Heading'
-import { GameCard } from '../../components/GameCard'
+import { GameCard, GameAdsProps } from '../../components/GameCard'
+import { api } from '../../services/api'
 
 export const Home = () => {
+  const [games, setGames] = useState<GameAdsProps[]>([])
+
+  useEffect(() => {
+    const loadGames = async () => {
+      const { data } = await api.get('/games')
+      setGames(data)
+    }
+    loadGames()
+  }, [])
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -21,7 +31,7 @@ export const Home = () => {
         />
 
         <FlatList
-          data={GAMES}
+          data={games}
           keyExtractor={item => item.id}
           horizontal
           showsHorizontalScrollIndicator={false}
