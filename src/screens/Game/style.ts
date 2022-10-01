@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import { THEME } from '../../theme'
 
 export const styles = StyleSheet.create({
   container: {
@@ -37,5 +38,15 @@ export const styles = StyleSheet.create({
     paddingRight: 64,
     paddingBottom: 32,
     paddingLeft: 32
+  },
+  emptyListContent: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  emptyListText: {
+    fontSize: THEME.FONT_SIZE.SM,
+    fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
+    color: THEME.COLORS.CAPTION_300
   }
 })

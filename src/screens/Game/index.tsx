@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { FlatList, Image, ScrollView, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Entypo } from '@expo/vector-icons'
 
@@ -59,7 +59,9 @@ export const Game = () => {
 
           <FlatList
             style={styles.contentList}
-            contentContainerStyle={styles.contentDuoCard}
+            contentContainerStyle={
+              [duos.length > 0 ? styles.contentDuoCard : styles.emptyListContent]
+            }
             data={duos}
             keyExtractor={item => item.id}
             renderItem={({ item }) => {
@@ -69,6 +71,14 @@ export const Game = () => {
                   data={item}
                   onConnect={() => { }}
                 />
+              )
+            }}
+            ListEmptyComponent={() => {
+              return (
+                <Text style={styles.emptyListText}>
+                  Não há anúncios publicados{`${'\n'}`}
+                  para este jogo ainda
+                </Text>
               )
             }}
             horizontal
