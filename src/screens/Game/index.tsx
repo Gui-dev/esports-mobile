@@ -7,6 +7,7 @@ import { Entypo } from '@expo/vector-icons'
 import { Background } from '../../components/Background'
 import { Heading } from '../../components/Heading'
 import { DuoCard, DuoCardProps } from '../../components/DuoCard'
+import { DuoMatch } from './../../components/DuoMatch'
 
 import logoImg from './../../assets/logo-nlw-esports.png'
 import { THEME } from '../../theme'
@@ -24,10 +25,7 @@ export const Game = () => {
   const { goBack } = useNavigation()
   const game = route.params as RouteParams
   const [duos, setDuos] = useState<DuoCardProps[]>([])
-
-  const handleNavigationGoBack = () => {
-    goBack()
-  }
+  const [discordDuoSelected, setDiscordDuoSelected] = useState('')
 
   useEffect(() => {
     const loadGameAd = async () => {
@@ -36,6 +34,15 @@ export const Game = () => {
     }
     loadGameAd()
   }, [game.id])
+
+  const handleNavigationGoBack = () => {
+    goBack()
+  }
+
+  const getDiscordUser = async (adsId: string) => {
+    const { data } = await api.get(`/ads/${adsId}/discord`)
+    setDiscordDuoSelected(data.discord)
+  }
 
   return (
     <Background>
@@ -69,7 +76,7 @@ export const Game = () => {
                 <DuoCard
                   key={item.id}
                   data={item}
-                  onConnect={() => { }}
+                  onConnect={() => getDiscordUser(item.id)}
                 />
               )
             }}
@@ -82,6 +89,12 @@ export const Game = () => {
               )
             }}
             horizontal
+          />
+
+          <DuoMatch
+            discord={discordDuoSelected}
+            visible={!!discordDuoSelected}
+            onClose={() => setDiscordDuoSelected('')}
           />
 
         </ScrollView>
